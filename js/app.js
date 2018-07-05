@@ -14,6 +14,9 @@ const CHAR_BOY_SPRITE = "images/char-boy.png";
 const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
 const VERTICAL_MOVE_INTV = 83;
+const GEM_SPRITES = ["images/gem-blue.png", "images/gem-orange.png", "images/gem-green.png"];
+const GEM_RANDOM_X = [18, 119, 220, 321, 422];
+const GEM_RANDOM_Y = [100, 183, 266];
 const scoreSpanElement = document.querySelector("#score");
 let score = 0;
 
@@ -40,6 +43,12 @@ class Entity {
   static getRandomSpeed(speedArray, arrayLength) {
     let index = Math.floor(Math.random() * Math.floor(arrayLength));
     return speedArray[index];
+  }
+
+  // Static method that returns a random gem stripe
+  static getRandomGemSprite() {
+    let index = Math.floor(Math.random() * Math.floor(GEM_SPRITES.length));
+    return GEM_SPRITES[index];
   }
 }
 
@@ -93,6 +102,13 @@ class Player extends Entity {
   }
 }
 
+class Gem extends Entity {
+  // GEM scale is 65 to 110
+  constructor(x, y, sprite = "images/gem-blue.png") {
+    super(x, y, sprite);
+  }
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -100,6 +116,8 @@ let allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.l
                   new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
                   new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
 let player = new Player();
+let gem = new Gem(Entity.getRandomPos(GEM_RANDOM_X, GEM_RANDOM_X.length), Entity.getRandomPos(GEM_RANDOM_Y, GEM_RANDOM_Y.length),
+                  Entity.getRandomGemSprite());
 updateScore();
 
 // This listens for key presses and sends the keys to your
