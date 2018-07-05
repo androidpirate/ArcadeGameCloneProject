@@ -4,6 +4,7 @@ const enemyInitY = 100;
 const enemyInitSpeed = 100;
 const enemyRandomX = [-250, -200, -150, -100, -50];
 const enemyRandomY = [60, 150, 230];
+const enemyRandomSpeed = [100, 150, 200, 250];
 const enemySprite = "images/enemy-bug.png";
 const playerInitX = 200;
 const playerInitY = 400;
@@ -32,12 +33,18 @@ class Entity {
     let index = Math.floor(Math.random() * Math.floor(arrayLength));
     return positionArray[index];
   }
+
+  // Static method that returns a random movement speed
+  static getRandomSpeed(speedArray, arrayLength) {
+    let index = Math.floor(Math.random() * Math.floor(arrayLength));
+    return speedArray[index];
+  }
 }
 
 class Enemy extends Entity {
-  constructor(x = enemyInitX, y = enemyInitY, sprite = enemySprite) {
+  constructor(x = enemyInitX, y = enemyInitY, speed = enemyInitSpeed, sprite = enemySprite) {
     super(x, y, sprite);
-    this.speed = 100;
+    this.speed = Entity.getRandomSpeed(enemyRandomSpeed, enemyRandomSpeed.length);
   }
 
   // Updates enemy position and respawn location
