@@ -5,7 +5,14 @@ const enemyInitSpeed = 100;
 const enemyRandomX = [-250, -200, -150, -100, -50];
 const enemyRandomY = [60, 150, 230];
 const enemySprite = "images/enemy-bug.png";
+const playerInitX = 200;
+const playerInitY = 400;
+const playerMinPosLimit = 0;
+const playerMaxPosLimit = 400;
+const charBoySprite = "images/char-boy.png";
 const canvasXLimit = 550;
+const horizontalMoveIntv = 101;
+const verticalMoveIntv = 93;
 
 // Base class for all entities used in the game
 class Entity {
@@ -43,40 +50,33 @@ class Enemy extends Entity {
     }
   }
 }
-// Enemies our player must avoid
-/* var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-};*/
+class Player extends Entity {
+  constructor(x = playerInitX, y = playerInitY, sprite = charBoySprite) {
+    super(x, y, sprite);
+  }
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-};
+  update(dt) {
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+  }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
+  // Handles keyboard input and moves player on game board
+  handleInput(input) {
+    if (input === 'left' && this.x > playerMinPosLimit) {
+      this.x -= horizontalMoveIntv;
+    } else if (input === 'right' && this.x < playerMaxPosLimit) {
+      this.x += horizontalMoveIntv;
+    } else if (input === 'up' && this.y > playerMinPosLimit) {
+      this.y -= verticalMoveIntv;
+    } else if (input === 'down' && this.y < playerMaxPosLimit) {
+      this.y += verticalMoveIntv;
+    }
+  }
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-
-
-
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
