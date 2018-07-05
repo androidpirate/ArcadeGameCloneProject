@@ -42,9 +42,9 @@ class Enemy extends Entity {
 
   // Updates enemy position and respawn location
   update(dt) {
-    this.x += this.speed + dt;
+    this.x += this.speed * dt;
     // If the enemy passes canvas limit respawn at random location
-    if(this,x >= canvasXLimit) {
+    if(this.x >= canvasXLimit) {
       this.x = Entity.getRandomPos(enemyRandomX, enemyRandomX.length);
       this.y = Entity.getRandomPos(enemyRandomY, enemyRandomY.length);
     }
@@ -77,6 +77,11 @@ class Player extends Entity {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+let allEnemies = [new Enemy(Entity.getRandomPos(enemyRandomX, enemyRandomX.length), Entity.getRandomPos(enemyRandomY, enemyRandomY.length)),
+                  new Enemy(Entity.getRandomPos(enemyRandomX, enemyRandomX.length), Entity.getRandomPos(enemyRandomY, enemyRandomY.length)),
+                  new Enemy(Entity.getRandomPos(enemyRandomX, enemyRandomX.length), Entity.getRandomPos(enemyRandomY, enemyRandomY.length))];
+let player = new Player();
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
