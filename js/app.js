@@ -1,3 +1,25 @@
+/* jshint esversion: 6*/
+
+// Base class for all entities used in the game
+class Entity {
+  constructor(initX, initY, sprite) {
+    this.x = initX;
+    this.y = initY;
+    this.sprite = sprite;
+  }
+
+  // Draw entities on the screen
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+
+  // Static method that returns a random position for entities
+  static getRandomPos(positionArray, arrayLength) {
+    let index = Math.floor(Math.random() * Math.floor(arrayLength));
+    return positionArray[index];
+  }
+}
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
