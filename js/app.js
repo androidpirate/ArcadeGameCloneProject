@@ -13,7 +13,7 @@ const PLAYER_MAX_POS_LIMIT = 400;
 const CHAR_BOY_SPRITE = "images/char-boy.png";
 const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
-const VERTICAL_MOVE_INTV = 93;
+const VERTICAL_MOVE_INTV = 83;
 const scoreSpanElement = document.querySelector("#score");
 let score = 0;
 
@@ -73,6 +73,7 @@ class Player extends Entity {
     }
   }
 
+  // Resets player position
   resetPosition() {
     this.x = PLAYER_INIT_X;
     this.y = PLAYER_INIT_Y;
@@ -114,6 +115,18 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Updates score
 function updateScore() {
   scoreSpanElement.textContent = score.toString();
+}
+
+function checkCollisions() {
+  for(let i = 0; i < allEnemies.length; i++) {
+      if(Math.abs(player.x - allEnemies[i].x) <= 30 && Math.abs(player.y - allEnemies[i].y) <= 10) {
+        alert("Opps, you have been bugged!");
+        player.resetPosition();
+        score = 0;
+        updateScore();
+      }
+  }
 }
