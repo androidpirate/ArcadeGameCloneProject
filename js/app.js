@@ -14,6 +14,8 @@ const CHAR_BOY_SPRITE = "images/char-boy.png";
 const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
 const VERTICAL_MOVE_INTV = 93;
+const scoreSpanElement = document.querySelector("#score");
+let score = 0;
 
 // Base class for all entities used in the game
 class Entity {
@@ -64,7 +66,16 @@ class Player extends Entity {
   }
 
   update(dt) {
+    if(this.y <= 0) {
+      this.resetPosition();
+      score++;
+      updateScore();
+    }
+  }
 
+  resetPosition() {
+    this.x = PLAYER_INIT_X;
+    this.y = PLAYER_INIT_Y;
   }
 
   // Handles keyboard input and moves player on game board
@@ -88,6 +99,7 @@ let allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.l
                   new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
                   new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
 let player = new Player();
+updateScore();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -101,3 +113,7 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function updateScore() {
+  scoreSpanElement.textContent = score.toString();
+}

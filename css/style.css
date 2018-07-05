@@ -1,3 +1,9 @@
 body {
     text-align: center;
 }
+
+.score-board {
+    font-family: Tahoma, sans-serif;
+    font-size: 2em;
+    margin-top: 20px;
+}
