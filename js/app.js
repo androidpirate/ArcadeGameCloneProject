@@ -1,19 +1,19 @@
 /* jshint esversion: 6*/
-const enemyInitX = 100;
-const enemyInitY = 100;
-const enemyInitSpeed = 100;
-const enemyRandomX = [-250, -200, -150, -100, -50];
-const enemyRandomY = [60, 150, 230];
-const enemyRandomSpeed = [100, 150, 200, 250];
-const enemySprite = "images/enemy-bug.png";
-const playerInitX = 200;
-const playerInitY = 400;
-const playerMinPosLimit = 0;
-const playerMaxPosLimit = 400;
-const charBoySprite = "images/char-boy.png";
-const canvasXLimit = 550;
-const horizontalMoveIntv = 101;
-const verticalMoveIntv = 93;
+const ENEMY_INIT_X = 100;
+const ENEMY_INIT_Y = 100;
+const ENEMY_INIT_SPEED = 100;
+const ENEMY_RANDOM_X = [-250, -200, -150, -100, -50];
+const ENEMY_RANDOM_Y = [60, 150, 230];
+const ENEMY_RANDOM_SPEED = [100, 150, 200, 250, 300];
+const ENEMY_SPRITE = "images/enemy-bug.png";
+const PLAYER_INIT_X = 200;
+const PLAYER_INIT_Y = 400;
+const PLAYER_MIN_POS_LIMIT = 0;
+const PLAYER_MAX_POS_LIMIT = 400;
+const CHAR_BOY_SPRITE = "images/char-boy.png";
+const CANVAS_X_LIMIT = 550;
+const HORIZONTAL_MOVE_INTV = 101;
+const VERTICAL_MOVE_INTV = 93;
 
 // Base class for all entities used in the game
 class Entity {
@@ -42,24 +42,24 @@ class Entity {
 }
 
 class Enemy extends Entity {
-  constructor(x = enemyInitX, y = enemyInitY, speed = enemyInitSpeed, sprite = enemySprite) {
+  constructor(x = ENEMY_INIT_X, y = ENEMY_INIT_Y, speed = ENEMY_INIT_SPEED, sprite = ENEMY_SPRITE) {
     super(x, y, sprite);
-    this.speed = Entity.getRandomSpeed(enemyRandomSpeed, enemyRandomSpeed.length);
+    this.speed = Entity.getRandomSpeed(ENEMY_RANDOM_SPEED, ENEMY_RANDOM_SPEED.length);
   }
 
   // Updates enemy position and respawn location
   update(dt) {
     this.x += this.speed * dt;
     // If the enemy passes canvas limit respawn at random location
-    if(this.x >= canvasXLimit) {
-      this.x = Entity.getRandomPos(enemyRandomX, enemyRandomX.length);
-      this.y = Entity.getRandomPos(enemyRandomY, enemyRandomY.length);
+    if(this.x >= CANVAS_X_LIMIT) {
+      this.x = Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length);
+      this.y = Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length);
     }
   }
 }
 
 class Player extends Entity {
-  constructor(x = playerInitX, y = playerInitY, sprite = charBoySprite) {
+  constructor(x = PLAYER_INIT_X, y = PLAYER_INIT_Y, sprite = CHAR_BOY_SPRITE) {
     super(x, y, sprite);
   }
 
@@ -69,14 +69,14 @@ class Player extends Entity {
 
   // Handles keyboard input and moves player on game board
   handleInput(input) {
-    if (input === 'left' && this.x > playerMinPosLimit) {
-      this.x -= horizontalMoveIntv;
-    } else if (input === 'right' && this.x < playerMaxPosLimit) {
-      this.x += horizontalMoveIntv;
-    } else if (input === 'up' && this.y > playerMinPosLimit) {
-      this.y -= verticalMoveIntv;
-    } else if (input === 'down' && this.y < playerMaxPosLimit) {
-      this.y += verticalMoveIntv;
+    if (input === 'left' && this.x > PLAYER_MIN_POS_LIMIT) {
+      this.x -= HORIZONTAL_MOVE_INTV;
+    } else if (input === 'right' && this.x < PLAYER_MAX_POS_LIMIT) {
+      this.x += HORIZONTAL_MOVE_INTV;
+    } else if (input === 'up' && this.y > PLAYER_MIN_POS_LIMIT) {
+      this.y -= VERTICAL_MOVE_INTV;
+    } else if (input === 'down' && this.y < PLAYER_MAX_POS_LIMIT) {
+      this.y += VERTICAL_MOVE_INTV;
     }
   }
 }
@@ -84,9 +84,9 @@ class Player extends Entity {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-let allEnemies = [new Enemy(Entity.getRandomPos(enemyRandomX, enemyRandomX.length), Entity.getRandomPos(enemyRandomY, enemyRandomY.length)),
-                  new Enemy(Entity.getRandomPos(enemyRandomX, enemyRandomX.length), Entity.getRandomPos(enemyRandomY, enemyRandomY.length)),
-                  new Enemy(Entity.getRandomPos(enemyRandomX, enemyRandomX.length), Entity.getRandomPos(enemyRandomY, enemyRandomY.length))];
+let allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
+                  new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
+                  new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
 let player = new Player();
 
 // This listens for key presses and sends the keys to your
