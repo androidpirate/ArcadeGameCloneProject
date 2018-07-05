@@ -1,4 +1,11 @@
 /* jshint esversion: 6*/
+const enemyInitX = 100;
+const enemyInitY = 100;
+const enemyInitSpeed = 100;
+const enemyRandomX = [-250, -200, -150, -100, -50];
+const enemyRandomY = [60, 150, 230];
+const enemySprite = "images/enemy-bug.png";
+const canvasXLimit = 550;
 
 // Base class for all entities used in the game
 class Entity {
@@ -20,15 +27,31 @@ class Entity {
   }
 }
 
+class Enemy extends Entity {
+  constructor(x = enemyInitX, y = enemyInitY, sprite = enemySprite) {
+    super(x, y, sprite);
+    this.speed = 100;
+  }
+
+  // Updates enemy position and respawn location
+  update(dt) {
+    this.x += this.speed + dt;
+    // If the enemy passes canvas limit respawn at random location
+    if(this,x >= canvasXLimit) {
+      this.x = Entity.getRandomPos(enemyRandomX, enemyRandomX.length);
+      this.y = Entity.getRandomPos(enemyRandomY, enemyRandomY.length);
+    }
+  }
+}
 // Enemies our player must avoid
-var Enemy = function() {
+/* var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-};
+};*/
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
