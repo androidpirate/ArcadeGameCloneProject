@@ -15,16 +15,25 @@ const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
 const VERTICAL_MOVE_INTV = 83;
 const GEM_SPRITES = ["images/gem-blue.png", "images/gem-green.png", "images/gem-orange.png"];
-//const GEM_RANDOM_X = [-150, -100, 18, 119, 220, 321, 422, 550, 600];
-//const GEM_RANDOM_Y = [-200, - 150, 100, 183, 266, 650, 700];
-const SPECIAL_CELLS = [[0, 55], [101, 55], [202, 55], [303, 55], [404, 55],
+/**const SPECIAL_CELLS = [[0, 55, false], [101, 55, false], [202, 55, false], [303, 55, false], [404, 55, false],
                        [0, 140], [101, 140], [202, 140], [303, 140], [404, 140],
-                       [0, 220], [101, 220], [202, 220], [303, 220], [404, 220]];
+                       [0, 220], [101, 220], [202, 220], [303, 220], [404, 220]]; */
 const scoreSpanElement = document.querySelector("#score");
 const gameStartMessage = document.querySelector(".modal");
 const okButton = document.querySelector(".button");
 let score = 0;
-let isGemVisible = false;
+
+class Cell {
+  constructor(row, col, occupied) {
+    this.row = row;
+    this.col = col;
+    this.occupied = occupied;
+  }
+}
+const SPECIAL_CELLS = [new Cell(0, 55, false), new Cell(101, 55, false), new Cell(202, 55, false), new Cell(303, 55, false),
+                       new Cell(404, 55, false), new Cell(0, 140, false), new Cell(101, 140, false), new Cell(202, 140, false),
+                       new Cell(303, 140, false), new Cell(505, 140, false),new Cell(0 , 220, false), new Cell(101, 220, false),
+                       new Cell(202, 220, false), new Cell(303, 220, false), new Cell(404, 220, false), new Cell(505, 220, false)];
 
 // Base class for all entities used in the game
 class Entity {
@@ -132,18 +141,32 @@ class Player extends Entity {
   }
 }
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+class Gem extends Entity {
+  // GEM scale is 65 to 110
+  constructor(x, y, sprite = "images/gem-blue.png") {
+    super(x, y, sprite);
+  }
 
-    player.handleInput(allowedKeys[e.keyCode]);
-});
+  // Static method that creates a gem at random location
+  static getRandomGem() {
+    let randomCell = Entity.getRandomCell();
+    return new Gem(randomCell.row, randomCell.col, Entity.getRandomGemSprite());
+  }
+}
+
+class Rock extends Entity {
+  constructor(x, y, sprite = "images/rock.png") {
+    super(x, y, sprite);
+  }
+
+  // Static method that creates a rock at random location
+  static getRandomRock() {
+    let randomCell = Entity.getRandomCell();
+    return new Rock(randomCell.row, randomCell.col);
+  }
+}
+
+
 
 // Checks for collisions between player and enemy
 function checkCollisions() {
@@ -164,32 +187,23 @@ function updateScore() {
   scoreSpanElement.textContent = score.toString();
 }
 
-class Gem extends Entity {
-  // GEM scale is 65 to 110
-  constructor(x, y, sprite = "images/gem-blue.png") {
-    super(x, y, sprite);
-  }
+// This listens for key presses and sends the keys to your
+// Player.handleInput() method. You don't need to modify this.
+document.addEventListener('keyup', function(e) {
+    var allowedKeys = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down'
+    };
 
-  static getRandomGem() {
-    let randomCell = Entity.getRandomCell();
-    return new Gem(randomCell[0], randomCell[1], Entity.getRandomGemSprite());
-  }
-}
+    player.handleInput(allowedKeys[e.keyCode]);
+});
 
+// Click listener for OK button in Game Start Message
 okButton.addEventListener("click", function() {
   gameStartMessage.classList.toggle("close");
 });
-
-class Rock extends Entity {
-  constructor(x, y, sprite = "images/rock.png") {
-    super(x, y, sprite);
-  }
-
-  static getRandomRock() {
-    let randomCell = Entity.getRandomCell();
-    return new Rock(randomCell[0], randomCell[1]);
-  }
-}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
