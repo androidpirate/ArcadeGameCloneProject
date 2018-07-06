@@ -14,7 +14,7 @@ const CHAR_BOY_SPRITE = "images/char-boy.png";
 const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
 const VERTICAL_MOVE_INTV = 83;
-const GEM_SPRITES = ["images/gem-blue.png", "images/gem-orange.png", "images/gem-green.png"];
+const GEM_SPRITES = ["images/gem-blue.png", "images/gem-green.png", "images/gem-orange.png"];
 const GEM_RANDOM_X = [-150, -100, 18, 119, 220, 321, 422, 550, 600];
 const GEM_RANDOM_Y = [-200, - 150, 100, 183, 266, 650, 700];
 const scoreSpanElement = document.querySelector("#score");
@@ -86,15 +86,15 @@ class Player extends Entity {
       gem = Gem.getRandomGem();
     } else if(Math.abs(this.x - gem.x) <= 50 && Math.abs(this.y - gem.y) <= 50) {
       switch (gem.sprite) {
-        case "images/gem-blue.png":
+        case GEM_SPRITES[0]:
           score += 1;
           updateScore();
           break;
-        case "images/gem-green.png":
+        case GEM_SPRITES[1]:
           score += 2;
           updateScore();
           break;
-        case "images/gem-orange.png":
+        case GEM_SPRITES[2]:
           score += 3;
           updateScore();
           break;
