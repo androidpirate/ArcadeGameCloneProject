@@ -18,6 +18,8 @@ const GEM_SPRITES = ["images/gem-blue.png", "images/gem-orange.png", "images/gem
 const GEM_RANDOM_X = [18, 119, 220, 321, 422];
 const GEM_RANDOM_Y = [100, 183, 266];
 const scoreSpanElement = document.querySelector("#score");
+const gameStartMessage = document.querySelector(".modal");
+const okButton = document.querySelector(".button");
 let score = 0;
 
 // Base class for all entities used in the game
@@ -74,6 +76,7 @@ class Player extends Entity {
     super(x, y, sprite);
   }
 
+  // Respawn player at start position and update score
   update(dt) {
     if(this.y <= 0) {
       this.resetPosition();
@@ -102,24 +105,6 @@ class Player extends Entity {
   }
 }
 
-class Gem extends Entity {
-  // GEM scale is 65 to 110
-  constructor(x, y, sprite = "images/gem-blue.png") {
-    super(x, y, sprite);
-  }
-}
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-let allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
-                  new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
-                  new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
-let player = new Player();
-let gem = new Gem(Entity.getRandomPos(GEM_RANDOM_X, GEM_RANDOM_X.length), Entity.getRandomPos(GEM_RANDOM_Y, GEM_RANDOM_Y.length),
-                  Entity.getRandomGemSprite());
-updateScore();
-
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -133,13 +118,11 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-// Updates score
-function updateScore() {
-  scoreSpanElement.textContent = score.toString();
-}
-
+// Checks for collisions between player and enemy
 function checkCollisions() {
   for(let i = 0; i < allEnemies.length; i++) {
+      // Any distance less than 30 within any horizontal direction and
+      // 10 within vertical direction considered as a collision
       if(Math.abs(player.x - allEnemies[i].x) <= 30 && Math.abs(player.y - allEnemies[i].y) <= 10) {
         alert("Opps, you have been bugged!");
         player.resetPosition();
@@ -148,3 +131,30 @@ function checkCollisions() {
       }
   }
 }
+
+// Updates score
+function updateScore() {
+  scoreSpanElement.textContent = score.toString();
+}
+
+class Gem extends Entity {
+  // GEM scale is 65 to 110
+  constructor(x, y, sprite = "images/gem-blue.png") {
+    super(x, y, sprite);
+  }
+}
+
+okButton.addEventListener("click", function() {
+  gameStartMessage.classList.toggle("close");
+});
+
+// Now instantiate your objects.
+// Place all enemy objects in an array called allEnemies
+// Place the player object in a variable called player
+let allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
+                  new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
+                  new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
+let player = new Player();
+let gem = new Gem(Entity.getRandomPos(GEM_RANDOM_X, GEM_RANDOM_X.length), Entity.getRandomPos(GEM_RANDOM_Y, GEM_RANDOM_Y.length),
+                  Entity.getRandomGemSprite());
+updateScore();
