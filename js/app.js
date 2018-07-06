@@ -17,6 +17,9 @@ const VERTICAL_MOVE_INTV = 83;
 const GEM_SPRITES = ["images/gem-blue.png", "images/gem-green.png", "images/gem-orange.png"];
 const GEM_RANDOM_X = [-150, -100, 18, 119, 220, 321, 422, 550, 600];
 const GEM_RANDOM_Y = [-200, - 150, 100, 183, 266, 650, 700];
+const SPECIAL_CELLS = [[0, 55], [101, 55], [202, 55], [303, 55], [404, 55],
+                       [0, 140], [101, 140], [202, 140], [303, 140], [404, 140],
+                       [0, 220], [101, 220], [202, 220], [303, 220], [404, 220]];
 const scoreSpanElement = document.querySelector("#score");
 const gameStartMessage = document.querySelector(".modal");
 const okButton = document.querySelector(".button");
@@ -52,6 +55,12 @@ class Entity {
   static getRandomGemSprite() {
     let index = Math.floor(Math.random() * Math.floor(GEM_SPRITES.length));
     return GEM_SPRITES[index];
+  }
+
+  // Static method that returns random special special cell
+  static getRandomCell() {
+    let index = Math.floor(Math.random() * Math.floor(SPECIAL_CELLS.length));
+    return SPECIAL_CELLS[index];
   }
 }
 
@@ -171,6 +180,17 @@ okButton.addEventListener("click", function() {
   gameStartMessage.classList.toggle("close");
 });
 
+class Rock extends Entity {
+  constructor(x, y, sprite = "images/rock.png") {
+    super(x, y, sprite);
+  }
+
+  static getRandomRock() {
+    let randomCell = Entity.getRandomCell();
+    return new Rock(randomCell[0], randomCell[1]);
+  }
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -179,4 +199,5 @@ let allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.l
                   new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
 let player = new Player();
 let gem = Gem.getRandomGem();
+let rock = Rock.getRandomRock();
 updateScore();
