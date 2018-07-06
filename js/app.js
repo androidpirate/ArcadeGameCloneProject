@@ -15,8 +15,8 @@ const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
 const VERTICAL_MOVE_INTV = 83;
 const GEM_SPRITES = ["images/gem-blue.png", "images/gem-green.png", "images/gem-orange.png"];
-const GEM_RANDOM_X = [-150, -100, 18, 119, 220, 321, 422, 550, 600];
-const GEM_RANDOM_Y = [-200, - 150, 100, 183, 266, 650, 700];
+//const GEM_RANDOM_X = [-150, -100, 18, 119, 220, 321, 422, 550, 600];
+//const GEM_RANDOM_Y = [-200, - 150, 100, 183, 266, 650, 700];
 const SPECIAL_CELLS = [[0, 55], [101, 55], [202, 55], [303, 55], [404, 55],
                        [0, 140], [101, 140], [202, 140], [303, 140], [404, 140],
                        [0, 220], [101, 220], [202, 220], [303, 220], [404, 220]];
@@ -171,8 +171,8 @@ class Gem extends Entity {
   }
 
   static getRandomGem() {
-    return new Gem(Entity.getRandomPos(GEM_RANDOM_X, GEM_RANDOM_X.length), Entity.getRandomPos(GEM_RANDOM_Y, GEM_RANDOM_Y.length),
-                  Entity.getRandomGemSprite());
+    let randomCell = Entity.getRandomCell();
+    return new Gem(randomCell[0], randomCell[1], Entity.getRandomGemSprite());
   }
 }
 
