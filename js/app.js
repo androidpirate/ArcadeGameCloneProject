@@ -15,12 +15,13 @@ const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
 const VERTICAL_MOVE_INTV = 83;
 const GEM_SPRITES = ["images/gem-blue.png", "images/gem-orange.png", "images/gem-green.png"];
-const GEM_RANDOM_X = [18, 119, 220, 321, 422];
-const GEM_RANDOM_Y = [100, 183, 266];
+const GEM_RANDOM_X = [-150, -100, 18, 119, 220, 321, 422, 550, 600];
+const GEM_RANDOM_Y = [-200, - 150, 100, 183, 266, 650, 700];
 const scoreSpanElement = document.querySelector("#score");
 const gameStartMessage = document.querySelector(".modal");
 const okButton = document.querySelector(".button");
 let score = 0;
+let isGemVisible = false;
 
 // Base class for all entities used in the game
 class Entity {
@@ -82,6 +83,23 @@ class Player extends Entity {
       this.resetPosition();
       score++;
       updateScore();
+      gem = Gem.getRandomGem();
+    } else if(Math.abs(this.x - gem.x) <= 50 && Math.abs(this.y - gem.y) <= 50) {
+      switch (gem.sprite) {
+        case "images/gem-blue.png":
+          score += 1;
+          updateScore();
+          break;
+        case "images/gem-green.png":
+          score += 2;
+          updateScore();
+          break;
+        case "images/gem-orange.png":
+          score += 3;
+          updateScore();
+          break;
+      }
+      gem = Gem.getRandomGem();
     }
   }
 
@@ -142,6 +160,11 @@ class Gem extends Entity {
   constructor(x, y, sprite = "images/gem-blue.png") {
     super(x, y, sprite);
   }
+
+  static getRandomGem() {
+    return new Gem(Entity.getRandomPos(GEM_RANDOM_X, GEM_RANDOM_X.length), Entity.getRandomPos(GEM_RANDOM_Y, GEM_RANDOM_Y.length),
+                  Entity.getRandomGemSprite());
+  }
 }
 
 okButton.addEventListener("click", function() {
@@ -155,6 +178,5 @@ let allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.l
                   new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
                   new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
 let player = new Player();
-let gem = new Gem(Entity.getRandomPos(GEM_RANDOM_X, GEM_RANDOM_X.length), Entity.getRandomPos(GEM_RANDOM_Y, GEM_RANDOM_Y.length),
-                  Entity.getRandomGemSprite());
+let gem = Gem.getRandomGem();
 updateScore();
