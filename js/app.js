@@ -105,10 +105,10 @@ class Player extends Entity {
       this.resetPosition();
       score++;
       updateScore();
-      Rock.resetCellStatus(rockCell);
-      rock = Rock.getRandomRock();
       Gem.resetCellStatus(gemCell);
       gem = Gem.getRandomGem();
+      Rock.resetCellStatus(rockCell);
+      rock = Rock.getRandomRock();
     } else if(Math.abs(this.x - gem.x) <= 50 && Math.abs(this.y - gem.y) <= 50) {
         switch (gem.sprite) {
           case GEM_SPRITES[0]:
