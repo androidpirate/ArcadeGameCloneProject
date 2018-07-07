@@ -104,9 +104,9 @@ class Player extends Entity {
       score++;
       updateScore();
       Rock.resetCellStatus(rockCell);
-      rockCell = Rock.getRandomRock;
+      rock = Rock.getRandomRock();
       Gem.resetCellStatus(gemCell);
-      gemCell = Gem.getRandomGem();
+      gem = Gem.getRandomGem();
     } else if(Math.abs(this.x - gem.x) <= 50 && Math.abs(this.y - gem.y) <= 50) {
       switch (gem.sprite) {
         case GEM_SPRITES[0]:
@@ -123,7 +123,7 @@ class Player extends Entity {
           break;
       }
       Gem.resetCellStatus(gemCell);
-      gemCell = Gem.getRandomGem();
+      gem = Gem.getRandomGem();
     }
   }
 
@@ -155,13 +155,13 @@ class Gem extends Entity {
 
   // Static method that creates a gem at random location
   static getRandomGem() {
-    let gemCell = Entity.getRandomCell();
+    gemCell = Entity.getRandomCell();
     gemCell.occupied = true;
     return new Gem(gemCell.row, gemCell.col, Entity.getRandomGemSprite());
   }
 
   static resetCellStatus(cell) {
-    cell.occupied = false;
+    gemCell.occupied = false;
   }
 }
 
@@ -178,11 +178,9 @@ class Rock extends Entity {
   }
 
   static resetCellStatus(cell) {
-    cell.occupied = false;
+    rockCell.occupied = false;
   }
 }
-
-
 
 // Checks for collisions between player and enemy
 function checkCollisions() {
