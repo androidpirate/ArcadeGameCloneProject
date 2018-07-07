@@ -187,7 +187,9 @@ class Rock extends Entity {
   // Static method that creates a rock at random location
   static getRandomRock() {
     rockCell = Entity.getRandomCell();
-    rockCell.occupied = true;
+    while(rockCell.occupied) {
+      rockCell = Entity.getRandomCell();
+    }
     return new Rock(rockCell.row, rockCell.col);
   }
 
