@@ -32,10 +32,12 @@ class Cell {
     this.occupied = occupied;
   }
 }
-const SPECIAL_CELLS = [new Cell(0, 55, false), new Cell(101, 55, false), new Cell(202, 55, false), new Cell(303, 55, false),
-                       new Cell(404, 55, false), new Cell(0, 140, false), new Cell(101, 140, false), new Cell(202, 140, false),
-                       new Cell(303, 140, false), new Cell(505, 140, false),new Cell(0 , 220, false), new Cell(101, 220, false),
-                       new Cell(202, 220, false), new Cell(303, 220, false), new Cell(404, 220, false), new Cell(505, 220, false)];
+const SPECIAL_CELLS = [new Cell(-101, 55, false), new Cell(0, 55, false), new Cell(101, 55, false), new Cell(202, 55, false),
+                       new Cell(303, 55, false), new Cell(404, 55, false), new Cell(505, 55, false), new Cell(-101, 140, false),
+                       new Cell(0, 140, false), new Cell(101, 140, false), new Cell(202, 140, false), new Cell(303, 140, false),
+                       new Cell(404, 140, false), new Cell(505, 140, false), new Cell(-101, 220, false), new Cell(0 , 220, false),
+                       new Cell(101, 220, false),new Cell(202, 220, false), new Cell(303, 220, false), new Cell(404, 220, false),
+                       new Cell(505, 220, false)];
 
 // Base class for all entities used in the game
 class Entity {
