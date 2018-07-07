@@ -21,6 +21,8 @@ const GEM_SPRITES = ["images/gem-blue.png", "images/gem-green.png", "images/gem-
 const scoreSpanElement = document.querySelector("#score");
 const gameStartMessage = document.querySelector(".modal");
 const okButton = document.querySelector(".button");
+let gemCell;
+let rockCell;
 let score = 0;
 
 class Cell {
@@ -101,7 +103,10 @@ class Player extends Entity {
       this.resetPosition();
       score++;
       updateScore();
-      gem = Gem.getRandomGem();
+      Rock.resetCellStatus(rockCell);
+      rockCell = Rock.getRandomRock;
+      Gem.resetCellStatus(gemCell);
+      gemCell = Gem.getRandomGem();
     } else if(Math.abs(this.x - gem.x) <= 50 && Math.abs(this.y - gem.y) <= 50) {
       switch (gem.sprite) {
         case GEM_SPRITES[0]:
@@ -117,7 +122,8 @@ class Player extends Entity {
           updateScore();
           break;
       }
-      gem = Gem.getRandomGem();
+      Gem.resetCellStatus(gemCell);
+      gemCell = Gem.getRandomGem();
     }
   }
 
@@ -149,8 +155,13 @@ class Gem extends Entity {
 
   // Static method that creates a gem at random location
   static getRandomGem() {
-    let randomCell = Entity.getRandomCell();
-    return new Gem(randomCell.row, randomCell.col, Entity.getRandomGemSprite());
+    let gemCell = Entity.getRandomCell();
+    gemCell.occupied = true;
+    return new Gem(gemCell.row, gemCell.col, Entity.getRandomGemSprite());
+  }
+
+  static resetCellStatus(cell) {
+    cell.occupied = false;
   }
 }
 
@@ -161,8 +172,13 @@ class Rock extends Entity {
 
   // Static method that creates a rock at random location
   static getRandomRock() {
-    let randomCell = Entity.getRandomCell();
-    return new Rock(randomCell.row, randomCell.col);
+    rockCell = Entity.getRandomCell();
+    rockCell.occupied = true;
+    return new Rock(rockCell.row, rockCell.col);
+  }
+
+  static resetCellStatus(cell) {
+    cell.occupied = false;
   }
 }
 
