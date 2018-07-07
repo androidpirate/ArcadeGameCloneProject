@@ -110,24 +110,24 @@ class Player extends Entity {
       Gem.resetCellStatus(gemCell);
       gem = Gem.getRandomGem();
     } else if(Math.abs(this.x - gem.x) <= 50 && Math.abs(this.y - gem.y) <= 50) {
-      switch (gem.sprite) {
-        case GEM_SPRITES[0]:
-          score += 1;
-          updateScore();
-          break;
-        case GEM_SPRITES[1]:
-          score += 2;
-          updateScore();
-          break;
-        case GEM_SPRITES[2]:
-          score += 3;
-          updateScore();
-          break;
-      }
+        switch (gem.sprite) {
+          case GEM_SPRITES[0]:
+            score += 1;
+            updateScore();
+            break;
+          case GEM_SPRITES[1]:
+            score += 2;
+            updateScore();
+            break;
+          case GEM_SPRITES[2]:
+            score += 3;
+            updateScore();
+            break;
+          }
       Gem.resetCellStatus(gemCell);
       gem = Gem.getRandomGem();
     }
-  }
+   }
 
   // Resets player position
   resetPosition() {
@@ -138,13 +138,25 @@ class Player extends Entity {
   // Handles keyboard input and moves player on game board
   handleInput(input) {
     if (input === 'left' && this.x > PLAYER_MIN_POS_LIMIT) {
-      this.x -= HORIZONTAL_MOVE_INTV;
+      let moveLeft = this.x - HORIZONTAL_MOVE_INTV;
+      if(Math.abs(moveLeft - rock.x) > 50 || Math.abs(player.y - rock.y) > 50) {
+          this.x -= HORIZONTAL_MOVE_INTV;
+      }
     } else if (input === 'right' && this.x < PLAYER_MAX_POS_LIMIT) {
-      this.x += HORIZONTAL_MOVE_INTV;
+      let moveRight = this.x + HORIZONTAL_MOVE_INTV;
+      if(Math.abs(moveRight - rock.x) > 50 || Math.abs(player.y - rock.y) > 50) {
+          this.x += HORIZONTAL_MOVE_INTV;
+      }
     } else if (input === 'up' && this.y > PLAYER_MIN_POS_LIMIT) {
-      this.y -= VERTICAL_MOVE_INTV;
+      let moveUp = this.y - VERTICAL_MOVE_INTV;
+      if(Math.abs(moveUp - rock.y) > 50 || Math.abs(player.x - rock.x) > 50) {
+          this.y -= VERTICAL_MOVE_INTV;
+      }
     } else if (input === 'down' && this.y < PLAYER_MAX_POS_LIMIT) {
-      this.y += VERTICAL_MOVE_INTV;
+      let moveDown = this.y + VERTICAL_MOVE_INTV;
+      if(Math.abs(moveDown - rock.y) > 50 || Math.abs(player.x - rock.x) > 50) {
+          this.y += VERTICAL_MOVE_INTV;
+      }
     }
   }
 }
