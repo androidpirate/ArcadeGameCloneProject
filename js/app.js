@@ -170,6 +170,9 @@ class Gem extends Entity {
   // Static method that creates a gem at random location
   static getRandomGem() {
     gemCell = Entity.getRandomCell();
+    while(gemCell.occupied) {
+      rockCell = Entity.getRamdomCell();
+    }
     gemCell.occupied = true;
     return new Gem(gemCell.row, gemCell.col, Entity.getRandomGemSprite());
   }
@@ -190,6 +193,7 @@ class Rock extends Entity {
     while(rockCell.occupied) {
       rockCell = Entity.getRandomCell();
     }
+    rockCell.occupied = true;
     return new Rock(rockCell.row, rockCell.col);
   }
 
