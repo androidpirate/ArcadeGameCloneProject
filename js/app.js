@@ -171,7 +171,7 @@ class Gem extends Entity {
   static getRandomGem() {
     gemCell = Entity.getRandomCell();
     while(gemCell.occupied) {
-      rockCell = Entity.getRamdomCell();
+      gemCell = Entity.getRandomCell();
     }
     gemCell.occupied = true;
     return new Gem(gemCell.row, gemCell.col, Entity.getRandomGemSprite());
