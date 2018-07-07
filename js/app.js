@@ -216,6 +216,13 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Prevents page scroll when using arrows keys and space
+window.addEventListener("keydown", function(e) {
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
+
 // Click listener for OK button in Game Start Message
 okButton.addEventListener("click", function() {
   gameStartMessage.classList.toggle("close");
