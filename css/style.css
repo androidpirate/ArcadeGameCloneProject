@@ -5,6 +5,7 @@ body {
 .score-board {
     font-family: Tahoma, Arial, sans-serif;
     font-size: 2em;
+    margin: 0;
 }
 
 .modal {
@@ -27,11 +28,10 @@ body {
 .modal-content {
     background-color: #fefefe;
     margin: 1em auto; /* 15% from the top and centered */
-    padding: 20px;
+    padding: 1em;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
-    height: 55%;
-    min-height: 250px;
+    height: 30%;
 }
 
 #select-char-header {
@@ -45,7 +45,7 @@ body {
   background-color: #fefefe;
   margin: 0;
   padding: 0;
-  /*width: 100%; /* Could be more or less, depending on screen size */
+  /*  width: 100%; /* Could be more or less, depending on screen size
   /*height: 80%;*/
 }
 
@@ -61,6 +61,7 @@ body {
 
 .character-box img {
   flex: 1;
+  width: 50%;
   display: block;
   margin: 0;
   padding: 0;
@@ -68,12 +69,10 @@ body {
 
 /* Modal Button */
 .button {
-  width: 80px;
-  height: 40px;
-  padding: 10px;
-  margin: 10px;
+  width: 10%;
+  padding: 1%;
   font-family: Tahoma, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 1em;
   float: right;
 }
 
@@ -82,10 +81,10 @@ body {
   margin-top: 3em;
 }
 
-#button-ok-game-start {
+/*#button-ok-game-start {
   flex: 0.5;
-  margin-top: 7em;
-}
+  margin-top: 10%;;
+}*/
 
 /* Turns off the modal box */
 .closeModal {
