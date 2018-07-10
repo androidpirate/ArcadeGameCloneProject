@@ -215,7 +215,12 @@ function checkCollisions() {
       // Any distance less than 30 within any horizontal direction and
       // 10 within vertical direction considered as a collision
       if(Math.abs(player.x - allEnemies[i].x) <= 30 && Math.abs(player.y - allEnemies[i].y) <= 10) {
-        alert("Opps, you have been bugged!");
+        // alert("Opps, you have been bugged!");
+        swal({
+              title: "Game Over",
+              text: "Opps, you have been bugged!",
+              button: "Restart"
+             });
         player.resetPosition();
         score = 0;
         updateScore();
