@@ -10,17 +10,19 @@ const PLAYER_INIT_X = 200;
 const PLAYER_INIT_Y = 400;
 const PLAYER_MIN_POS_LIMIT = 0;
 const PLAYER_MAX_POS_LIMIT = 400;
-const CHAR_BOY_SPRITE = "images/char-boy.png";
 const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
 const VERTICAL_MOVE_INTV = 83;
 const GEM_SPRITES = ["images/gem-blue.png", "images/gem-green.png", "images/gem-orange.png"];
-/**const SPECIAL_CELLS = [[0, 55, false], [101, 55, false], [202, 55, false], [303, 55, false], [404, 55, false],
-                       [0, 140], [101, 140], [202, 140], [303, 140], [404, 140],
-                       [0, 220], [101, 220], [202, 220], [303, 220], [404, 220]]; */
-const scoreSpanElement = document.querySelector("#score");
-const gameStartMessage = document.querySelector(".modal");
-const okButton = document.querySelector(".button");
+const scoreSpan = document.querySelector("#score");
+const startMessageModal = document.querySelector("#message-game-start");
+const selectCharModal = document.querySelector("#character-select");
+const okButtonGameStart = document.querySelector("#button-ok-game-start");
+const okButtonselectCharModal = document.querySelector("#button-ok-select-char");
+const charNameSpan = document.querySelector("#char-name");
+
+// Default value for charSprite
+let charSprite = "images/char-boy.png";
 let gemCell;
 let rockCell;
 let score = 0;
@@ -32,6 +34,7 @@ class Cell {
     this.occupied = occupied;
   }
 }
+// Cells that a rock or a gem can be inserted randomly
 const SPECIAL_CELLS = [new Cell(-101, 55, false), new Cell(0, 55, false), new Cell(101, 55, false), new Cell(202, 55, false),
                        new Cell(303, 55, false), new Cell(404, 55, false), new Cell(505, 55, false), new Cell(-101, 140, false),
                        new Cell(0, 140, false), new Cell(101, 140, false), new Cell(202, 140, false), new Cell(303, 140, false),
@@ -95,11 +98,11 @@ class Enemy extends Entity {
 }
 
 class Player extends Entity {
-  constructor(x = PLAYER_INIT_X, y = PLAYER_INIT_Y, sprite = CHAR_BOY_SPRITE) {
+  constructor(x = PLAYER_INIT_X, y = PLAYER_INIT_Y, sprite = charSprite) {
     super(x, y, sprite);
   }
 
-  // Respawn player at start position and update score
+  // Respawns player at start position and update score
   update(dt) {
     if(this.y <= 0) {
       this.resetPosition();
@@ -111,14 +114,17 @@ class Player extends Entity {
       rock = Rock.getRandomRock();
     } else if(Math.abs(this.x - gem.x) <= 50 && Math.abs(this.y - gem.y) <= 50) {
         switch (gem.sprite) {
+          // Blue gem
           case GEM_SPRITES[0]:
             score += 1;
             updateScore();
             break;
+          // Green gem
           case GEM_SPRITES[1]:
             score += 2;
             updateScore();
             break;
+          // Orange gem
           case GEM_SPRITES[2]:
             score += 3;
             updateScore();
@@ -162,7 +168,6 @@ class Player extends Entity {
 }
 
 class Gem extends Entity {
-  // GEM scale is 65 to 110
   constructor(x, y, sprite = "images/gem-blue.png") {
     super(x, y, sprite);
   }
@@ -177,6 +182,7 @@ class Gem extends Entity {
     return new Gem(gemCell.row, gemCell.col, Entity.getRandomGemSprite());
   }
 
+  // Static method that resets cell status to not occupied
   static resetCellStatus(cell) {
     gemCell.occupied = false;
   }
@@ -197,6 +203,7 @@ class Rock extends Entity {
     return new Rock(rockCell.row, rockCell.col);
   }
 
+  // Static method that resets cell status to not occupied
   static resetCellStatus(cell) {
     rockCell.occupied = false;
   }
@@ -218,7 +225,7 @@ function checkCollisions() {
 
 // Updates score
 function updateScore() {
-  scoreSpanElement.textContent = score.toString();
+  scoreSpan.textContent = score.toString();
 }
 
 // This listens for key presses and sends the keys to your
@@ -241,10 +248,38 @@ window.addEventListener("keydown", function(e) {
     }
 }, false);
 
-// Click listener for OK button in Game Start Message
-okButton.addEventListener("click", function() {
-  gameStartMessage.classList.toggle("close");
+// Click listener for OK button in Select Character Modal
+okButtonselectCharModal.addEventListener("click", function() {
+  selectCharModal.classList.toggle("closeModal");
 });
+
+// Click listener for OK button in Start Message Modal
+okButtonGameStart.addEventListener("click", function() {
+  startMessageModal.classList.toggle("closeModal");
+});
+
+// Replaces player's avatar with selected sprite
+function onRadioButtonClicked(radioButton) {
+  charSprite = radioButton.value;
+  player.sprite = charSprite;
+  switch(charSprite) {
+    case "images/char-cat-girl.png":
+      charNameSpan.textContent = "Cat Girl";
+      break;
+    case "images/char-horn-girl.png":
+      charNameSpan.textContent = "Horn Girl";
+      break;
+    case "images/char-pink-girl.png":
+      charNameSpan.textContent = "Pink Girl";
+      break;
+    case "images/char-princess-girl.png":
+      charNameSpan.textContent = "Princess Girl";
+      break;
+    default:
+      charNameSpan.textContent = "Beach Boy";
+      break;
+  }
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
