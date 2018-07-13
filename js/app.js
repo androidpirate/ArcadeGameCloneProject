@@ -22,6 +22,10 @@ const okButtonSelectCharModal = document.querySelector("#button-ok-select-char")
 const charNameSpan = document.querySelector("#char-name");
 
 // Default value for charSprite
+let allEnemies;
+let player;
+let gem;
+let rock;
 let charSprite = "images/char-boy.png";
 let gemCell;
 let rockCell;
@@ -221,6 +225,7 @@ function checkCollisions() {
         });
         player.resetPosition();
         score = 0;
+        initializeGame();
         updateScore();
       }
   }
@@ -284,13 +289,19 @@ function onRadioButtonClicked(radioButton) {
   }
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-let allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
-                  new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
-                  new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
-let player = new Player();
-let gem = Gem.getRandomGem();
-let rock = Rock.getRandomRock();
+// Initializes game elements on game board
+function initializeGame() {
+  // Now instantiate your objects.
+  // Place all enemy objects in an array called allEnemies
+  // Place the player object in a variable called player
+  allEnemies = [new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
+                    new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length)),
+                    new Enemy(Entity.getRandomPos(ENEMY_RANDOM_X, ENEMY_RANDOM_X.length), Entity.getRandomPos(ENEMY_RANDOM_Y, ENEMY_RANDOM_Y.length))];
+  player = new Player();
+  gem = Gem.getRandomGem();
+  rock = Rock.getRandomRock();
+}
+
+// Initialize game 
+initializeGame();
 updateScore();

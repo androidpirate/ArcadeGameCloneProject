@@ -21,7 +21,7 @@ body {
     text-align: left;
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(10,110,198,1.0); /* Black w/ opacity */
+    background-color: rgba(10,110,198,1.0);
 }
 
 /* Modal Content/Box */
@@ -107,4 +107,13 @@ body {
   font-size: 16px;
   text-align: center;
   color: black;
+}
+
+.swal-button {
+  color: white;
+  background-color: rgba(10,110,198,1.0);;
+}
+
+.swal-overlay {
+  background-color: rgba(10,110,198,1.0);
 }
