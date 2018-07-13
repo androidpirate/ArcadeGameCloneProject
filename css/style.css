@@ -67,6 +67,10 @@ body {
   padding: 0;
 }
 
+#message-game-over {
+  display: none;
+}
+
 /* Modal Button */
 .button {
   width: 10%;
@@ -81,12 +85,26 @@ body {
   margin-top: 3em;
 }
 
-/*#button-ok-game-start {
-  flex: 0.5;
-  margin-top: 10%;;
-}*/
-
 /* Turns off the modal box */
 .closeModal {
   display: none;
+}
+
+/* Sweet alert title style */
+.swal-title {
+  margin: 0px;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 16px;
+  color: black;
+}
+
+/* Sweet alert text style */
+.swal-text {
+  padding: 10px;
+  display: block;
+  margin: 10px;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  color: black;
 }

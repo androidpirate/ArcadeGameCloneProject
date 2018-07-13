@@ -18,7 +18,7 @@ const scoreSpan = document.querySelector("#score");
 const startMessageModal = document.querySelector("#message-game-start");
 const selectCharModal = document.querySelector("#character-select");
 const okButtonGameStart = document.querySelector("#button-ok-game-start");
-const okButtonselectCharModal = document.querySelector("#button-ok-select-char");
+const okButtonSelectCharModal = document.querySelector("#button-ok-select-char");
 const charNameSpan = document.querySelector("#char-name");
 
 // Default value for charSprite
@@ -215,12 +215,10 @@ function checkCollisions() {
       // Any distance less than 30 within any horizontal direction and
       // 10 within vertical direction considered as a collision
       if(Math.abs(player.x - allEnemies[i].x) <= 30 && Math.abs(player.y - allEnemies[i].y) <= 10) {
-        // alert("Opps, you have been bugged!");
         swal({
-              title: "Game Over",
-              text: "Opps, you have been bugged!",
-              button: "Restart"
-             });
+          text: "You've been bugged! Click OK to restart the game.",
+          title: "Game Over"
+        });
         player.resetPosition();
         score = 0;
         updateScore();
@@ -254,7 +252,7 @@ window.addEventListener("keydown", function(e) {
 }, false);
 
 // Click listener for OK button in Select Character Modal
-okButtonselectCharModal.addEventListener("click", function() {
+okButtonSelectCharModal.addEventListener("click", function() {
   selectCharModal.classList.toggle("closeModal");
 });
 
