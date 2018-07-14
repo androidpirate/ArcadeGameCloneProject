@@ -3,7 +3,7 @@
 The game is an adaptation of the classical arcade game **Frogger** developed by Konami in 1981. The main goal of the game is to get the player character to the beach safely, without getting caught by giant bugs and collect precious gems on the way.
 
 <p align="center">
-  <img src="\img\game_screen_cap.png">
+  <img src="images/game_screen_cap.png">
 </p>
 
 ## Table of Contents
