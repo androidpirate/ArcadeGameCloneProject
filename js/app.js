@@ -14,6 +14,7 @@ const CANVAS_X_LIMIT = 550;
 const HORIZONTAL_MOVE_INTV = 101;
 const VERTICAL_MOVE_INTV = 83;
 const GEM_SPRITES = ["images/gem-blue.png", "images/gem-green.png", "images/gem-orange.png"];
+/* Constants for DOM elements */
 const scoreSpan = document.querySelector("#score");
 const startMessageModal = document.querySelector("#message-game-start");
 const selectCharModal = document.querySelector("#character-select");
@@ -21,12 +22,11 @@ const okButtonGameStart = document.querySelector("#button-ok-game-start");
 const okButtonSelectCharModal = document.querySelector("#button-ok-select-char");
 const charNameSpan = document.querySelector("#char-name");
 
-// Default value for charSprite
 let allEnemies;
 let player;
 let gem;
 let rock;
-let charSprite = "images/char-boy.png";
+let charSprite = "images/char-boy.png"; /* Default value is char-boy.png */
 let gemCell;
 let rockCell;
 let score = 0;
@@ -302,6 +302,6 @@ function initializeGame() {
   rock = Rock.getRandomRock();
 }
 
-// Initialize game 
+// Initialize game
 initializeGame();
 updateScore();
