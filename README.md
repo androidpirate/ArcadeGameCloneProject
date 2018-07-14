@@ -3,7 +3,7 @@
 The game is an adaptation of the classical arcade game **Frogger** developed by Konami in 1981. The main goal of the game is to get the player character to the beach safely, without getting caught by giant bugs and collect precious gems on the way.
 
 <p align="center">
-  <img src="\img\game_screen_capture.png">
+  <img src="\img\game_screen_cap.png">
 </p>
 
 ## Table of Contents
@@ -21,7 +21,7 @@ Every time the player reaches the beach (**water tiles**), the score increases 1
 
 Another way of scoring is to collect gems along the way. There are three types of gems available, blue, green, orange. Every blue gem collected is an additional 1 point, every green gem collected is an additional 2 points and every orange gem collected is an additional 3 points.
 
-If you caught by a bug, an alert dialog will pop and the game will be over. The score will reset to 0 and the player will be positioned back to starting point. 
+If you caught by a bug, an alert dialog will pop and the game will be over. The score will reset to 0 and the player will be positioned back to starting point.
 
 #### Game Functions
 
