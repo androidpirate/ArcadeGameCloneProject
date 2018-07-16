@@ -54,3 +54,4 @@ This repository is a project for Udacity's Front End Nano Degree program. Theref
 ## Dependencies
 
 1. [**Sweet Alert**](https://sweetalert.js.org/guides/)
+2. To run the game, please download or clone the app to your local drive from the link and open **index.html** in the cloned directory with any web browser to play the game. (https://github.com/androidpirate/ArcadeGameCloneProject.git)
